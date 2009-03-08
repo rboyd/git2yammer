@@ -9,5 +9,16 @@ git2yammer enables you to broadcast your git commits to your company yammer acco
 You need to read the Yammer API docs on how to get the consumer and access tokens and secrets.  I suggest you
 create a new user just for your Git updates and authorize this app from there.
 
+Once you have the required keys, drop them in a YAML file (default oauth.yml) like so:
+
+consumer:
+  key: YOUR_KEY_HERE
+  secret: YOUR_KEY_HERE
+  
+access:
+  token: YOUR_KEY_HERE
+  secret: YOUR_KEY_HERE
+
+
 == External Dependencies
  * yammer4r (0.1.2 -- git://github.com/jstewart/yammer4r.git)
