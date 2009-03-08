@@ -1,0 +1,35 @@
+#!/bin/sh
+# most of this code shamelessly ripped from Andy Parkins' post-receive-email script
+
+generate_yammer()
+{
+	oldrev=$(git rev-parse $1)
+	newrev=$(git rev-parse $2)
+	refname="$3"
+	/usr/bin/ruby git2yammer.rb $newrev $(pwd)
+}
+
+# --- Config
+# Set GIT_DIR either from the working directory, or from the environment
+# variable.
+GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
+if [ -z "$GIT_DIR" ]; then
+        echo >&2 "fatal: post-receive: GIT_DIR not set"
+        exit 1
+fi
+
+# --- Main loop
+# Allow dual mode: run from the command line just like the update hook, or
+# if no arguments are given then run as a hook script
+if [ -n "$1" -a -n "$2" -a -n "$3" ]; then
+        # Output to the terminal in command line mode - if someone wanted to
+        # resend an email; they could redirect the output to sendmail
+        # themselves
+        PAGER= generate_yammer $2 $3 $1
+else
+        while read oldrev newrev refname
+        do
+                generate_yammer $oldrev $newrev $refname
+        done
+fi
+
