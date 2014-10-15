@@ -14,7 +14,7 @@ Once you have the required keys, drop them in a YAML file (default oauth.yml) li
 consumer:
   key: YOUR_KEY_HERE
   secret: YOUR_KEY_HERE
-  
+
 access:
   token: YOUR_KEY_HERE
   secret: YOUR_KEY_HERE
